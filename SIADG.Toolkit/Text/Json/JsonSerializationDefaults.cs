@@ -1,4 +1,3 @@
-using Pemex.Sigec.Backend.Toolkit.Text.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -13,7 +12,7 @@ public static class JsonSerializationDefaults
     public static void Configure()
     {
         Configure(
-            Options, 
+            Options,
             JsonNamingPolicy.CamelCase,
             JsonNamingPolicy.CamelCase,
             JsonIgnoreCondition.WhenWritingNull,
@@ -23,7 +22,7 @@ public static class JsonSerializationDefaults
             ]
         );
     }
-    
+
     public static void Configure(
         JsonSerializerOptions options,
         JsonNamingPolicy? propertyNamingPolicy,
@@ -36,7 +35,7 @@ public static class JsonSerializationDefaults
         options.DictionaryKeyPolicy = dictionaryKeyPolicy;
         options.DefaultIgnoreCondition = defaultIgnoreCondition;
         options.PropertyNameCaseInsensitive = true;
-        
+
         foreach (var converter in converters)
             options.Converters.Add(converter);
     }
