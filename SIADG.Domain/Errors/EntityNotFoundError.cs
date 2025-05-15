@@ -1,6 +1,7 @@
 namespace SIADG.Domain.Errors;
 
-public sealed class EntityNotFoundError : DomainError
+public sealed class EntityNotFoundError 
+    : DomainError
 {
     public EntityNotFoundError(object identifier)
     {

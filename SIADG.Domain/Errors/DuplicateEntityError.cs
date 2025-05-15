@@ -1,6 +1,7 @@
 namespace SIADG.Domain.Errors;
 
-public sealed class DuplicateEntityError : DomainError
+public sealed class DuplicateEntityError 
+    : DomainError
 {
     public DuplicateEntityError(object identifier)
     {

@@ -1,6 +1,7 @@
 namespace SIADG.Domain.Errors;
 
-public sealed class EntityConflictError : DomainError
+public sealed class EntityConflictError 
+    : DomainError
 {
     public EntityConflictError(object identifier, string detail)
     {

@@ -1,6 +1,7 @@
 namespace SIADG.Domain.Specifications.Pagination;
 
-public sealed class OffsetPaginationOptions : PaginationOptions
+public sealed class OffsetPaginationOptions 
+    : PaginationOptions
 {
     public OffsetPaginationOptions(long pageNumber, long pageSize) : base(pageSize)
     {

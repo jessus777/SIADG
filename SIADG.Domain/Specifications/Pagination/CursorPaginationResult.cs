@@ -1,6 +1,7 @@
 namespace SIADG.Domain.Specifications.Pagination;
 
-public sealed class CursorPaginationResult<TCursor, TItem> : PaginationResult<TItem>
+public sealed class CursorPaginationResult<TCursor, TItem> 
+    : PaginationResult<TItem>
 {
     public CursorPaginationResult(IEnumerable<TItem> items, CursorPaginationOptions<TCursor> paginationOptions, TCursor? nextCursor)
         : base(items, paginationOptions)

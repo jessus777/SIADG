@@ -23,7 +23,7 @@ public class SortOptions
     public static IEnumerable<SortOptions> FromString(string sortOptions)
     {
         if (string.IsNullOrEmpty(sortOptions))
-            return Array.Empty<SortOptions>();
+            return [];
 
         return sortOptions
             .Split(",")

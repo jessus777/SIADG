@@ -1,6 +1,7 @@
 ﻿namespace SIADG.Domain.Errors
 {
-    public sealed class EntityInvalidDataError : DomainError
+    public sealed class EntityInvalidDataError 
+        : DomainError
     {
         public EntityInvalidDataError(object identifier, List<string> errors)
         {

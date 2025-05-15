@@ -3,7 +3,8 @@ using SIADG.Toolkit.Text;
 
 namespace SIADG.Domain.Errors;
 
-public abstract class DomainError : Error
+public abstract class DomainError 
+    : Error
 {
     private static readonly Dictionary<Type, string> ErrorCodes = [];
 

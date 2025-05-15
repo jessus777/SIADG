@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SIADG.Domain.Specifications;
-public abstract class PagedSpecification<T> : Specification<T>
+public abstract class PagedSpecification<T> 
+    : Specification<T>
 {
     public int PageNumber { get; }
     public int PageSize { get; }
