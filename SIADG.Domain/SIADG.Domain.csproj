@@ -6,15 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
+    <Folder Include="Aggregates\" />
     <Folder Include="Enums\" />
     <Folder Include="Events\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Agregados\" />
-    <Folder Include="Specifications\" />
     <Folder Include="Services\" />
-    <Folder Include="ValueObjects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIADG.Toolkit\SIADG.Toolkit.csproj" />
   </ItemGroup>
 
 </Project>
