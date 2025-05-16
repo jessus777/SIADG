@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace SIADG.Persistence.Database;
-public abstract  class AppDbContext
+public class AppDbContext
     : DbContext
 {
     // Constructor acepta DbContextOptions<T> genérico
-    protected AppDbContext(DbContextOptions options) : base(options) { }
+    public AppDbContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

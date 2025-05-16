@@ -1,35 +1,57 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using SIADG.Persistence.DatabaseProviders;
-using SIADG.Persistence.Repositories;
+using SIADG.Persistence.Enums;
 
 namespace SIADG.Persistence.Database;
 public static class DbContextFactory
 {
-    public static AppDbContext Create(IConfiguration configuration)
+    // Método para DbContextOptionsBuilder<AppDbContext>
+    public static DbContextOptionsBuilder<AppDbContext> ConfigureDbContext(
+        DbContextOptionsBuilder<AppDbContext> builder,
+        string connectionString,
+        DatabaseProvider provider)
     {
-        var providers = new List<IDatabaseProvider>
-        {
-            //new PostgresDatabaseProvider(),
-            new SqlServerDatabaseProvider(),
-            // Agrega más proveedores aquí
-        };
-
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-        var providerName = configuration["DatabaseProvider"]; // Ej: "Postgres" en appsettings.json
-
-        var provider = providers.FirstOrDefault(p => p.IsFor(providerName ?? string.Empty))
-            ?? throw new InvalidOperationException($"Proveedor de base de datos no soportado: {providerName}");
-
-        var options = new DbContextOptionsBuilder<AppDbContext>();
-        provider.Configure(options, connectionString ?? string.Empty);
-
-        return new CustomDbContext(options.Options);
+        ConfigureDbContextInternal(builder, connectionString, provider);
+        return builder;
     }
-}
 
-// Implementación concreta
-internal class CustomDbContext : AppDbContext
-{
-    public CustomDbContext(DbContextOptions options) : base(options) { }
+    // Método para DbContextOptionsBuilder genérico
+    public static DbContextOptionsBuilder ConfigureDbContext(
+        DbContextOptionsBuilder builder,
+        string connectionString,
+        DatabaseProvider provider)
+    {
+        ConfigureDbContextInternal(builder, connectionString, provider);
+        return builder;
+    }
+
+    // Método interno que implementa la lógica de configuración
+    private static void ConfigureDbContextInternal(
+        DbContextOptionsBuilder builder,
+        string connectionString,
+        DatabaseProvider provider)
+    {
+        switch (provider)
+        {
+            case DatabaseProvider.SqlServer:
+                builder.UseSqlServer(connectionString,
+                    sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
+                        sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    });
+                break;
+
+            case DatabaseProvider.PostgreSQL:
+                builder.UseNpgsql(connectionString,
+                    npgsqlOptions =>
+                    {
+                        npgsqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
+                        npgsqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    });
+                break;
+
+            default:
+                throw new ArgumentException($"Proveedor de base de datos no soportado: {provider}");
+        }
+    }
 }
