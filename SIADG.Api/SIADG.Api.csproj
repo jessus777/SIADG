@@ -12,8 +12,11 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIADG.Infrastructure\SIADG.Infrastructure.csproj" />
+    <ProjectReference Include="..\SIADG.Persistence\SIADG.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
