@@ -6,9 +6,10 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
     where TId : notnull
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Opcional para EF Core
-    public TId Id { get; protected set; } // Protected para inmutabilidad
+    public TId Id { get; protected set; } = default!; // Inicialización para evitar CS8618
 
     private readonly List<IDomainEvent> _domainEvents = new();
+
 
     [NotMapped] // No persistir en DB
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
